@@ -1,16 +1,23 @@
 package pkgShape;
 
+import java.util.*; 
+import java.lang.*; 
+import java.io.*; 
+
 public class Cuboid extends Rectangle{
 
 	private int iDepth;
 
+	public Cuboid() {
+	}
+	
 	public Cuboid(int iLength, int iWidth, int iDepth) throws Exception{
 		super(iLength,iWidth);
-		if (iDepth<0){
-			throw new IllegalArgumentException("Negative Value");
+		if (iDepth>0){
+			this.iDepth = iDepth;
 		 }
 		else {
-			this.iDepth = iDepth;
+			throw new IllegalArgumentException("Negative Value");
 		}
 	}
 
@@ -18,8 +25,13 @@ public class Cuboid extends Rectangle{
 		return iDepth;
 	}
 
-	public void setiDepth(int iDepth) {
-		this.iDepth = iDepth;
+	public void setiDepth(int iDepth) throws Exception {
+		if (iDepth>0) {
+			this.iDepth = iDepth;
+		}
+		else {
+			throw new IllegalArgumentException("Negative Value");
+		}
 	}
 	
 	public double volume() {
@@ -31,5 +43,39 @@ public class Cuboid extends Rectangle{
 		return (2*getiLength()*getiWidth())+(2*getiLength()*iDepth)+(2*getiWidth()*iDepth);
 	}
 	
-	/*public int compareTo(Object)*/
+	@Override
+	public double perimeter(){
+		throw new UnsupportedOperationException("Cuboid cannot use Perimeter");
+	}
+	
+	@Override
+	public int compareTo(Object obj) {
+		Cuboid c = (Cuboid) obj;
+		return Double.compare(c.volume(), this.volume());
+	}
+	
+	
+	
+	public class SortByArea implements Comparator<Cuboid>{
+		
+		protected SortByArea() {
+		}
+				
+		public int compare(Cuboid cuboid1, Cuboid cuboid2) {
+			return (int) (cuboid1.area() - cuboid2.area());
+		}
+		
+	}
+	
+	
+	
+	public class SortByVolume implements Comparator<Cuboid>{
+		
+		protected SortByVolume(){	
+		}
+		
+		public int compare(Cuboid cuboid1, Cuboid cuboid2) {
+			return (int) (cuboid1.volume() - cuboid2.volume());
+		}
+	}
 }

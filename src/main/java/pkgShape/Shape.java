@@ -2,13 +2,8 @@ package pkgShape;
 
 public abstract class Shape {
 	
-	public double area() {
-		return 0;
-	}
+	public abstract double area();
 	
-	public double perimeter() {
-		return 0;
-	}
-
+	public abstract double perimeter();
 }
 
